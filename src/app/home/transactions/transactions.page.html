@@ -1,0 +1,77 @@
+<ion-header>
+  <ion-toolbar>
+
+    <ion-buttons slot="start">
+      <ion-menu-button menu="m1">
+        <ion-icon name="menu" slot="icon-only"></ion-icon>
+      </ion-menu-button>
+    </ion-buttons>
+
+    <ion-title>Transactions</ion-title>
+  
+    <ion-buttons slot="primary">
+      <ion-button [routerLink]="['/home/transactions/new-transaction']">
+        <ion-icon name="add" slot="icon-only"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+
+  </ion-toolbar>
+
+</ion-header>
+
+<ion-content>
+  <ion-grid>
+    <ion-row>
+      <ion-col class="ion-text-center">
+        <h2>{{ dateObject | date:"MMMM yyyy" }}</h2>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col size-md="8" offset-md="2" >
+        <ion-list>
+          
+          <ion-item-sliding #transactionSlider *ngFor="let transaction of transactionsArr">
+            <ion-item>
+              <ion-grid>
+                <ion-row class="ion-text-center">
+                  <ion-col size="4"><strong>{{ transaction.date | date }}</strong></ion-col>
+                  <ion-col size="4"><strong>{{ transaction.store }}</strong></ion-col>
+                  <ion-col size="4" [ngClass]="{'color-green': transaction.earned=='earned','color-red': transaction.earned=='spent'}">
+                    <strong>
+                      C$ {{ transaction.amount }}
+                    </strong>
+                  </ion-col>
+                </ion-row>
+                <ion-row class="ion-text-center">
+                  <ion-col size="4">{{ transaction.transactionType }}</ion-col>
+                  <ion-col size="4">{{ transaction.billAvailable }}</ion-col>
+                  <ion-col size="4">{{ transaction.paymentMethod }}</ion-col>
+                </ion-row>
+                <ion-row>
+                  <ion-col size="12" class="ion-text-center">
+                    <ion-text *ngIf="transaction.thingsBought">{{ transaction.thingsBought }}</ion-text>
+                  </ion-col>
+                  <ion-col size="12" class="ion-text-center">
+                    <ion-text *ngIf="transaction.comments">{{ transaction.comments }}</ion-text>
+                  </ion-col>
+                </ion-row>
+              </ion-grid>
+              <ion-icon name="chevron-back-outline" style="color:grey"></ion-icon>
+            </ion-item>
+
+            <ion-item-options>
+              <ion-item-option color="secondary" (click)="editTransactionMethod(transactionSlider,transaction.transactionId)">
+                <ion-icon name="create" slot="icon-only"></ion-icon>
+              </ion-item-option>
+              <ion-item-option color="danger" (click)="deleteTransactionMethod(transactionSlider,transaction.transactionId)">
+                <ion-icon name="trash" slot="icon-only"></ion-icon>
+              </ion-item-option>
+            </ion-item-options>
+          </ion-item-sliding>
+
+          
+        </ion-list>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>

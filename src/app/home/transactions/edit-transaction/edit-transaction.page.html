@@ -1,0 +1,123 @@
+<ion-header>
+  <ion-toolbar>
+
+    <ion-buttons slot="start">
+      <ion-button>
+        <ion-back-button defaultHref="/home/transactions"></ion-back-button>
+      </ion-button>
+    </ion-buttons>
+
+    <ion-title>Edit transaction</ion-title>
+
+    <ion-buttons slot="primary">
+      <ion-button (click)="onSubmit()" routerDirection="backward">
+        <ion-icon name="checkmark" slot="icon-only"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    
+  </ion-toolbar>
+</ion-header>
+
+<ion-content *ngIf="!isLoading">
+  <form [formGroup]="transactionForm" (ngSubmit)="onSubmit()">
+    <ion-grid>
+      <ion-row>
+        <ion-col size-md="6" offset-md="3">
+          <ion-list>
+            
+            <ion-item style="display: none;">
+              <ion-label position="floating"><strong>Transaction Id</strong></ion-label>
+              <ion-input type="text" formControlName="transactionId"></ion-input>
+            </ion-item>
+
+            <ion-item>
+              <ion-label position="floating"><strong>Date</strong></ion-label>
+              <ion-datetime formControlName="date" min="2019-01-01" max="2025-12-31"></ion-datetime>  
+            </ion-item>
+
+            <ion-item>
+              <ion-radio-group formControlName="earned">
+                
+                  <ion-label>
+                    <strong>Income or expenditure</strong>
+                  </ion-label>
+              
+                  <ion-item>
+                    <ion-label>Earned</ion-label>
+                    <ion-radio slot="start" value="earned"></ion-radio>
+                  </ion-item>
+              
+                  <ion-item>
+                    <ion-label>Spent</ion-label>
+                    <ion-radio slot="start" value="spent"></ion-radio>
+                  </ion-item>
+              
+              </ion-radio-group>
+
+            </ion-item>
+
+            <ion-item>
+              <ion-label position="floating"><strong>Amount</strong></ion-label>
+              <ion-input formControlName="amount" type="number"></ion-input>
+            </ion-item>
+
+            <ion-item>
+              <ion-label><strong>Payment method</strong></ion-label>
+              <ion-select formControlName="paymentMethod" placeholder="Select One">
+                <ion-select-option value="CIBC debit card">CIBC debit card</ion-select-option>
+                <ion-select-option value="CIBC credit card">CIBC credit card</ion-select-option>
+                <ion-select-option value="Cash">Cash</ion-select-option>
+                <ion-select-option value="Interact e transfer">Interact e transfer</ion-select-option>
+                <ion-select-option value="Forex card">Forex card</ion-select-option>
+                <ion-select-option value="Not applicable">Not applicable</ion-select-option>
+              </ion-select>
+            </ion-item>
+
+            <ion-item>
+              <ion-label position="floating"><strong>Store</strong></ion-label>
+              <ion-input formControlName="store" type="text"></ion-input>
+            </ion-item>
+
+            <ion-item>
+              <ion-label position="floating"><strong>City</strong></ion-label>
+              <ion-input formControlName="city" type="text"></ion-input>
+            </ion-item>
+
+            <ion-item>
+              <ion-label><strong>Transaction type</strong></ion-label>
+              <ion-select formControlName="transactionType" placeholder="Select One">
+                <ion-select-option value="Income">Income</ion-select-option>
+                <ion-select-option value="House rent">House rent</ion-select-option>
+                <ion-select-option value="Phone">Phone</ion-select-option>
+                <ion-select-option value="Fuel">Fuel</ion-select-option>
+                <ion-select-option value="Grocery">Grocery</ion-select-option>
+                <ion-select-option value="MyGrocery">MyGrocery</ion-select-option>
+                <ion-select-option value="Others">Others</ion-select-option>
+              </ion-select>
+            </ion-item>
+            
+            <ion-item>
+              <ion-label><strong>Bill</strong></ion-label>
+              <ion-select formControlName="billAvailable" placeholder="Select One">
+                <ion-select-option value="Available">Available</ion-select-option>
+                <ion-select-option value="Not available">Not available</ion-select-option>
+              </ion-select>
+            </ion-item>
+
+            <ion-item>
+              <ion-label position="floating"><strong>Things bought</strong></ion-label>
+              <ion-input formControlName="thingsBought" type="text"></ion-input>
+            </ion-item>
+            
+            <ion-item>
+              <ion-label position="floating"><strong>Comment</strong></ion-label>
+              <ion-input formControlName="comments" type="text"></ion-input>
+            </ion-item>
+
+          </ion-list>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </form>
+
+</ion-content>

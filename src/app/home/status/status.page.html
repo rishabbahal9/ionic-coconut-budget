@@ -1,0 +1,77 @@
+<ion-header>
+  <ion-toolbar>
+    
+    <ion-buttons slot="start">
+      <ion-menu-button menu="m1">
+        <ion-icon name="menu" slot="icon-only"></ion-icon>
+      </ion-menu-button>
+    </ion-buttons>
+
+    <ion-title>Status</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-grid>
+    <ion-row>
+      <ion-col size-sm="6" offset-sm="3">
+        <ion-img 
+        src="assets/images/statusPageImage.png" 
+        alt="img"
+        style="width: 50%; display:block; margin:auto"
+        ></ion-img>
+      </ion-col>
+    </ion-row>
+    <ion-row style="margin-top: 10px">
+      <ion-col class="ion-text-center">
+        <h2>{{dateObj | date:'MMMM yyyy'}}</h2>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col size-sm="6" offset-sm="3">
+        <table>
+          <tr>
+            <th>EXPENDITURE</th>
+            <th>CURRENT</th>
+            <th>MAX</th>
+          </tr>
+          <tr>
+            <th>Home rent</th>
+            <td>C$ 00</td>
+            <td>C$ 367</td>
+          </tr>
+          <tr>
+            <th>Phone</th>
+            <td>C$ 00</td>
+            <td>C$ 41</td>
+          </tr>
+          <tr>
+            <th>Fuel</th>
+            <td>C$ 00</td>
+            <td>C$ 40</td>
+          </tr>
+          <tr>
+            <th>Grocery</th>
+            <td>C$ 15</td>
+            <td>C$ 150</td>
+          </tr>
+          <tr>
+            <th>MyGrocery</th>
+            <td>C$ 00</td>
+            <td>C$ 50</td>
+          </tr>
+          <tr>
+            <th>Others</th>
+            <td>C$ 00</td>
+            <td>C$ 30</td>
+          </tr>
+          <tr>
+            <th>Income</th>
+            <td>C$ 100000</td>
+            <td>NA</td>
+          </tr>
+        </table>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>
