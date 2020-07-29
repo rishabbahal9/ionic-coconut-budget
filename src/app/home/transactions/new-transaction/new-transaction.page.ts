@@ -11,7 +11,7 @@ import { NavController } from '@ionic/angular';
 export class NewTransactionPage implements OnInit {
 
   transactionForm=new FormGroup({
-    transactionId: new FormControl((Date.now()+Math.random()*1000).toString()),
+    transactionId: new FormControl(Math.round(Date.now()+Math.random()*1000).toString()),
     date: new FormControl(''),
     earned: new FormControl("earned"),
     amount: new FormControl(0),
@@ -34,6 +34,12 @@ export class NewTransactionPage implements OnInit {
   onSubmit()
   {
     this.transactionService.createTransaction(this.transactionForm.value)
+    .subscribe(
+      (data)=>{
+        // console.log(data)
+      },
+      (error)=>{console.log(error)}
+    )
     this.transactionForm.reset()
     this.navCtrl.navigateBack("/home/transactions")
   }

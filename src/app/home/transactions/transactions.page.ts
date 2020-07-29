@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { AlertController, IonItemSliding } from '@ionic/angular';
+import { AlertController, IonItemSliding, LoadingController } from '@ionic/angular';
 
 import { Transaction } from './transaction.model';
 import { TransactionService } from './transaction.service';
@@ -14,17 +14,37 @@ export class TransactionsPage implements OnInit {
 
   dateObject=Date.now()
   transactionsArr:Transaction[];
+  x:any="hello";
   constructor(
     private router:Router,
     private alertCtrl:AlertController,
-    private tranService:TransactionService
+    private tranService:TransactionService,
+    private loadingCtrl:LoadingController
   ) { }
 
   ngOnInit() {
   }
   ionViewWillEnter()
   {
-    this.transactionsArr=this.tranService.getTransactions()
+    //Creating loader
+    this.loadingCtrl.create({
+      keyboardClose: true,
+      message:"Loading...",
+      spinner: "lines"
+    })
+    .then(loadingEl=>{
+      loadingEl.present()
+      //Getting transactions
+      this.tranService.getTransactions()
+      .subscribe(
+        (data)=>{
+          this.x=data
+          this.transactionsArr=data.transaction
+          this.transactionsArr.reverse()
+          loadingEl.dismiss()
+        }
+      )
+    })
   }
 
   editTransactionMethod(transactionSlider:IonItemSliding,transactionId:string)
@@ -47,7 +67,33 @@ export class TransactionsPage implements OnInit {
           text: "Delete",
           handler:()=>{
             this.tranService.deleteTransaction(transactionId)
-            setTimeout(()=>{this.transactionsArr=this.tranService.getTransactions()},100)
+            .subscribe(
+              data=>{
+                if(data.transactionDeleted)
+                {
+                  //Creating loader
+                  this.loadingCtrl.create({
+                    keyboardClose: true,
+                    message:"Loading...",
+                    spinner: "lines"
+                  })
+                  .then(loadingEl=>{
+                    loadingEl.present()
+                    //Getting transactions
+                    this.tranService.getTransactions()
+                    .subscribe(
+                      (data)=>{
+                        this.x=data
+                        this.transactionsArr=data.transaction
+                        this.transactionsArr.reverse()
+                        loadingEl.dismiss()
+                      }
+                    )
+                  })
+                }
+              },
+              err=>{console.log(err)}
+            )
           }
         }
       ]

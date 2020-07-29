@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Transaction } from './transaction.model';
+import { HttpClient } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
@@ -48,33 +49,27 @@ export class TransactionService {
     }
   ];
 
-  constructor() { }
+  constructor(private http:HttpClient) { }
 
-  getTransactions():Transaction[]
+  getTransactions()
   {
-    return this.transactionsArr
+    return this.http.get<{transaction:Array<Transaction>}>('http://localhost:3001/currentMonthTransactions')
   }
-  async getTransaction(transactionId:string)
+  getTransaction(transactionId:string)
   {
-    return this.transactionsArr.find(tA=>{return tA.transactionId==transactionId})
+    // return this.transactionsArr.find(tA=>{return tA.transactionId==transactionId})
+    return this.http.get<{transaction:Transaction}>(`http://localhost:3001/getTransaction/${transactionId}`)
   }
   deleteTransaction(myTransactionId: string)
   {
-    return this.transactionsArr=this.transactionsArr.filter(t=>{return t.transactionId!=myTransactionId});
+    return this.http.post<{transactionDeleted: Boolean}>('http://localhost:3001/deleteTransaction',{transactionId: myTransactionId})
   }
   createTransaction(receivedTransaction: Transaction)
   {
-    return this.transactionsArr.push(receivedTransaction)
+    return this.http.post('http://localhost:3001/postNewTransactions',receivedTransaction)
   }
   updateTransaction(originalTransaction:Transaction,receivedTransaction: Transaction)
   {
-    let index=this.transactionsArr.indexOf(originalTransaction)
-    if(index!=-1)
-    {
-      this.transactionsArr[index]=receivedTransaction
-      return "Success"
-    }
-    return "Fail"
+    return this.http.post<{status: String}>('http://localhost:3001/updateTransaction',receivedTransaction)
   }
-
 }
