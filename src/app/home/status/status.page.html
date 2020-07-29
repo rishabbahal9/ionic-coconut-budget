@@ -37,60 +37,91 @@
           </tr>
           <tr>
             <th>Home rent</th>
-            <td>C$ {{status.homeRent}}</td>
+            <td>C$ {{status.homeRent?status.homeRent.amount:0}}</td>
             <td>C$ 367</td>
           </tr>
           <tr>
             <th>Phone</th>
-            <td>C$ {{status.phone}}</td>
+            <td>C$ {{status.phone?status.phone.amount:0}}</td>
             <td>C$ 41</td>
           </tr>
           <tr>
             <th>Fuel</th>
-            <td>C$ {{status.fuel}}</td>
+            <td>C$ {{status.fuel?status.fuel.amount:0}}</td>
             <td>C$ 40</td>
           </tr>
           <tr>
             <th>Grocery</th>
-            <td>C$ {{status.grocery}}</td>
+            <td>C$ {{status.grocery?status.grocery.amount:0}}</td>
             <td>C$ 150</td>
           </tr>
           <tr>
             <th>MyGrocery</th>
-            <td>C$ {{status.myGrocery}}</td>
+            <td>C$ {{status.myGrocery?status.myGrocery.amount:0}}</td>
             <td>C$ 50</td>
           </tr>
           <tr>
             <th>Others</th>
-            <td>C$ {{status.others}}</td>
+            <td>C$ {{status.others?status.others.amount:0}}</td>
             <td>C$ 30</td>
           </tr>
           <tr>
             <th>Income</th>
-            <td>C$ {{status.income}}</td>
+            <td>C$ {{status.income?status.income.amount:0}}</td>
             <td>&#8734;</td>
           </tr>
         </table>
       </ion-col>
     </ion-row>
-    <!-- <br>
+    <br>
     <ion-row *ngIf="showTable">
       <ion-col size-sm="6" offset-sm="3">
         <table>
           <tr>
             <th>Earned</th>
-            <td>C$ {{status.homeRent}}</td>
+            <td>C$ {{status2.earned?status2.earned.amount:0}}</td>
           </tr>
           <tr>
             <th>Spent</th>
-            <td>C$ {{status.phone}}</td>
+            <td>C$ {{status2.spent?status2.spent.amount:0}}</td>
           </tr>
           <tr>
             <th>Saved</th>
-            <td>C$ {{status.fuel}}</td>
+            <td>C$ {{status2.saved?status2.saved.amount:0}}</td>
           </tr>
         </table>
       </ion-col>
-    </ion-row> -->
+    </ion-row>
+    <br>
+    <ion-row *ngIf="showTable">
+      <ion-col size-sm="6" offset-sm="3">
+        <table>
+          <tr>
+            <th>CIBC debit card</th>
+            <td>C$ {{status3.cibcDebitCard?status3.cibcDebitCard.amount:0}}</td>
+          </tr>
+          <tr>
+            <th>CIBC credit card</th>
+            <td>C$ {{status3.cibcCreditCard?status3.cibcCreditCard.amount:0}}</td>
+          </tr>
+          <tr>
+            <th>Interact E transfer</th>
+            <td>C$ {{status3.interactETransfer?status3.interactETransfer.amount:0}}</td>
+          </tr>
+          <tr>
+            <th>Cash</th>
+            <td>C$ {{status3.cash?status3.cash.amount:0}}</td>
+          </tr>
+          <tr>
+            <th>Forex card</th>
+            <td>C$ {{status3.forexCard?status3.forexCard.amount:0}}</td>
+          </tr>
+          <tr>
+            <th>Not Applicable</th>
+            <td>C$ {{status3.nA?status3.nA.amount:0}}</td>
+          </tr>
+        </table>
+      </ion-col>
+    </ion-row>
   </ion-grid>
 </ion-content>

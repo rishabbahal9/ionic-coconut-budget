@@ -10,6 +10,6 @@ export class StatusService {
 
   getStatus()
   {
-    return this.http.get<{status: any}>('http://localhost:3001/status/getStatus')
+    return this.http.get<{status: any,status2: any,status3: any}>('http://localhost:3001/status/getStatus')
   }
 }
