@@ -1,6 +1,8 @@
 {
   "name": "Coconut Budget",
-  "integrations": {},
+  "integrations": {
+    "capacitor": {}
+  },
   "type": "angular",
   "id": "13d373c8"
 }
