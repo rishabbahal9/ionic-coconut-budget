@@ -4,6 +4,7 @@ import { AlertController, IonItemSliding, LoadingController } from '@ionic/angul
 
 import { Transaction } from './transaction.model';
 import { TransactionService } from './transaction.service';
+import { StateService } from './../state.service';
 
 @Component({
   selector: 'app-transactions',
@@ -12,14 +13,16 @@ import { TransactionService } from './transaction.service';
 })
 export class TransactionsPage implements OnInit {
 
-  dateObject=Date.now()
+  dateHeading=this.stateService.getDate();
   transactionsArr:Transaction[];
   x:any="hello";
   constructor(
     private router:Router,
     private alertCtrl:AlertController,
     private tranService:TransactionService,
-    private loadingCtrl:LoadingController
+    private stateService:StateService,
+    private loadingCtrl:LoadingController,
+
   ) { }
 
   ngOnInit() {
@@ -48,7 +51,7 @@ export class TransactionsPage implements OnInit {
   }
   ionViewWillEnter()
   {
-    this.getMonthYearTransactions(Date.now())
+    this.getMonthYearTransactions(this.stateService.getDate())
   }
 
   editTransactionMethod(transactionSlider:IonItemSliding,transactionId:string)
@@ -75,7 +78,7 @@ export class TransactionsPage implements OnInit {
               data=>{
                 if(data.transactionDeleted)
                 {
-                  this.getMonthYearTransactions(this.dateObject)
+                  this.getMonthYearTransactions(this.stateService.getDate())
                 }
               },
               err=>{console.log(err)}
@@ -90,9 +93,8 @@ export class TransactionsPage implements OnInit {
 
   changeDate(event:any)
   {
-    // console.log("Date changed")
-    // console.log(event.target.value)
-    this.dateObject=Date.parse(event.target.value)
-    this.getMonthYearTransactions(this.dateObject)
+    this.stateService.updateDate(Date.parse(event.target.value))
+    this.getMonthYearTransactions(this.stateService.getDate())
+    this.dateHeading=this.stateService.getDate()
   }
 }
