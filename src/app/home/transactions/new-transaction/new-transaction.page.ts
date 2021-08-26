@@ -19,7 +19,7 @@ export class NewTransactionPage implements OnInit {
     store: new FormControl(""),
     city: new FormControl("Sherbrooke"),
     transactionType: new FormControl(""),
-    billAvailable: new FormControl("Available"),
+    billAvailable: new FormControl("Not available"),
     thingsBought: new FormControl(),
     comments: new FormControl()
   })
