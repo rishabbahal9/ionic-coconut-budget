@@ -24,8 +24,8 @@ export class TransactionsPage implements OnInit {
 
   ngOnInit() {
   }
-  ionViewWillEnter()
-  {
+
+  getMonthYearTransactions(dateObj) {
     //Creating loader
     this.loadingCtrl.create({
       keyboardClose: true,
@@ -35,7 +35,7 @@ export class TransactionsPage implements OnInit {
     .then(loadingEl=>{
       loadingEl.present()
       //Getting transactions
-      this.tranService.getTransactions()
+      this.tranService.getTransactions(dateObj)
       .subscribe(
         (data)=>{
           this.x=data
@@ -45,6 +45,10 @@ export class TransactionsPage implements OnInit {
         }
       )
     })
+  }
+  ionViewWillEnter()
+  {
+    this.getMonthYearTransactions(Date.now())
   }
 
   editTransactionMethod(transactionSlider:IonItemSliding,transactionId:string)
@@ -71,25 +75,7 @@ export class TransactionsPage implements OnInit {
               data=>{
                 if(data.transactionDeleted)
                 {
-                  //Creating loader
-                  this.loadingCtrl.create({
-                    keyboardClose: true,
-                    message:"Loading...",
-                    spinner: "lines"
-                  })
-                  .then(loadingEl=>{
-                    loadingEl.present()
-                    //Getting transactions
-                    this.tranService.getTransactions()
-                    .subscribe(
-                      (data)=>{
-                        this.x=data
-                        this.transactionsArr=data.transaction
-                        this.transactionsArr.reverse()
-                        loadingEl.dismiss()
-                      }
-                    )
-                  })
+                  this.getMonthYearTransactions(this.dateObject)
                 }
               },
               err=>{console.log(err)}
@@ -100,5 +86,13 @@ export class TransactionsPage implements OnInit {
     }).then((alertEl)=>{
         alertEl.present()
     })
+  }
+
+  changeDate(event:any)
+  {
+    // console.log("Date changed")
+    // console.log(event.target.value)
+    this.dateObject=Date.parse(event.target.value)
+    this.getMonthYearTransactions(this.dateObject)
   }
 }

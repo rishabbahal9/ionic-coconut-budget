@@ -52,9 +52,9 @@ export class TransactionService {
 
   constructor(private http:HttpClient) { }
 
-  getTransactions()
+  getTransactions(dateObj)
   {
-    return this.http.get<{transaction:Array<Transaction>}>(`${this.backendUrl}/currentMonthTransactions`)
+    return this.http.get<{transaction:Array<Transaction>}>(`${this.backendUrl}/getMonthlyTransactions/${dateObj}`)
   }
   getTransaction(transactionId:string)
   {
