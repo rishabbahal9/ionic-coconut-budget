@@ -40,13 +40,6 @@ export class StatusPage implements OnInit {
             this.status3=data.status3
             this.showTable=true;
             loadingEl.dismiss()
-
-            console.log('status')
-            console.log(this.status)
-            console.log('status2')
-            console.log(this.status2)
-            console.log('status3')
-            console.log(this.status3)
           }
         )
       })

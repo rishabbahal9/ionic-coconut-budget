@@ -12,7 +12,6 @@ export class StateService {
   }
 
   getDate() {
-    console.log(new Date(this.theDate))
     return this.theDate;
   }
 
