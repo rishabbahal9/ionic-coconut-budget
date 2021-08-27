@@ -1,6 +1,7 @@
 import { LoadingController } from '@ionic/angular';
 import { Component, OnInit } from '@angular/core';
 import { StatusService } from './status.service';
+import { StateService } from '../state.service';
 
 @Component({
   selector: 'app-status',
@@ -8,20 +9,21 @@ import { StatusService } from './status.service';
   styleUrls: ['./status.page.scss'],
 })
 export class StatusPage implements OnInit {
-  dateObj:number= Date.now()
+  dateObj:number= this.stateService.getDate();
   status:any;
   status2:any;
   status3:any;
   showTable:boolean=false;
   constructor(
     private statusService: StatusService,
-    private loadingCtrl:LoadingController
+    private loadingCtrl:LoadingController,
+    private stateService:StateService
     ) { }
 
   ngOnInit() {
   }
-  ionViewWillEnter()
-  {
+
+  getMonthlyStatus() {
     this.loadingCtrl.create(
       {
         keyboardClose: true,
@@ -30,7 +32,7 @@ export class StatusPage implements OnInit {
       })
       .then(loadingEl=>{
         loadingEl.present()
-        this.statusService.getStatus()
+        this.statusService.getStatus(this.stateService.getDate())
         .subscribe(
           data=>{
             this.status=data.status
@@ -38,9 +40,28 @@ export class StatusPage implements OnInit {
             this.status3=data.status3
             this.showTable=true;
             loadingEl.dismiss()
+
+            console.log('status')
+            console.log(this.status)
+            console.log('status2')
+            console.log(this.status2)
+            console.log('status3')
+            console.log(this.status3)
           }
         )
       })
+  }
+  ionViewWillEnter()
+  {
+    this.dateObj= this.stateService.getDate();
+    this.getMonthlyStatus()
+  }
+
+  changeDate(event:any)
+  {
+    this.stateService.updateDate(Date.parse(event.target.value))
+    this.dateObj=this.stateService.getDate()
+    this.getMonthlyStatus()
   }
 
 }

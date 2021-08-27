@@ -25,6 +25,10 @@
     <ion-row style="margin-top: 10px">
       <ion-col class="ion-text-center">
         <h2>{{dateObj | date:'MMMM yyyy'}}</h2>
+        <ion-item style="max-width: 400px; display: block; margin: auto;">
+          <ion-label>Month-year</ion-label>
+          <ion-datetime displayFormat="MMM YYYY" value='{{ dateObj | date:"MMMM-yyyy" }}' (ionChange)="changeDate($event)" ></ion-datetime>
+        </ion-item>
       </ion-col>
     </ion-row>
     <ion-row *ngIf="showTable">

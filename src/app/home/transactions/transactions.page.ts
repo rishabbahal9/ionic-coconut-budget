@@ -51,6 +51,7 @@ export class TransactionsPage implements OnInit {
   }
   ionViewWillEnter()
   {
+    this.dateHeading=this.stateService.getDate();
     this.getMonthYearTransactions(this.stateService.getDate())
   }
 

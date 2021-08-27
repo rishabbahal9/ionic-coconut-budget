@@ -8,10 +8,12 @@ import { environment } from 'src/environments/environment';
 export class StatusService {
 
   backendUrl:String=environment.backendUrl
-  constructor(private http:HttpClient) { }
+  constructor(
+    private http:HttpClient,
+  ) { }
 
-  getStatus()
+  getStatus(dateObj)
   {
-    return this.http.get<{status: any,status2: any,status3: any}>(`${this.backendUrl}/status/getStatus`)
+    return this.http.get<{status: any,status2: any,status3: any}>(`${this.backendUrl}/status/getStatus/${dateObj}`)
   }
 }
