@@ -81,12 +81,17 @@
           </tr>
           <tr>
             <th>Self Investment</th>
-            <td>C$ {{status.income?status.SelfInvestment.amount:0}}</td>
+            <td>C$ {{status.SelfInvestment?status.SelfInvestment.amount:0}}</td>
             <td>&#8734;</td>
           </tr>
           <tr>
             <th>Income</th>
             <td>C$ {{status.income?status.income.amount:0}}</td>
+            <td>&#8734;</td>
+          </tr>
+          <tr>
+            <th>Business expense</th>
+            <td>C$ {{status.businessExpense?status.businessExpense.amount:0}}</td>
             <td>&#8734;</td>
           </tr>
         </table>

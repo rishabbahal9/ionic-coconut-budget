@@ -17,7 +17,7 @@ export class NewTransactionPage implements OnInit {
     amount: new FormControl(0),
     paymentMethod: new FormControl(""),
     store: new FormControl(""),
-    city: new FormControl("Sherbrooke"),
+    city: new FormControl("Montreal"),
     transactionType: new FormControl(""),
     billAvailable: new FormControl("Not available"),
     thingsBought: new FormControl(),
